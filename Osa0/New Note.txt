@@ -1,0 +1,15 @@
+title New Note
+
+selain->palvelin: HTTP POST https://fullstack-exampleapp.herokuapp.com/new_note
+
+note over palvelin
+Palvelin lisää uuden noten notes listalle
+end note
+
+palvelin->selain: HTTP 302 /notes
+
+note over selain
+Palvelin kehoittaa selainta tekemään automaattisesti uuden 
+HTTP GET -pyynnön headerin Location kertomaan paikkaan, 
+eli osoitteeseen notes
+end note

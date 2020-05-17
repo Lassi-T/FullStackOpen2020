@@ -1,0 +1,13 @@
+title Single Page App
+
+note over selain
+Uusi note lisätään ensin sivulle
+end note
+
+selain->palvelin: HTTP POST https://fullstack-exampleapp.herokuapp.com/new_note_spa
+
+note over palvelin
+Palvelin lisää uuden noten notes listalle
+end note
+
+palvelin->selain: HTTP 201
