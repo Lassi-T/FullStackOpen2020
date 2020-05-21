@@ -1,20 +1,27 @@
 import React, { useState } from 'react'
 import ReactDom from 'react-dom'
 
+const Statistic = (props) => (
+  <tr>
+    <td> {props.text} </td>
+    <td> {props.value} </td>
+  </tr>
+)
+
 const Statistics = (props) => {
   if (props.all > 0) {
     let avarage = props.good - props.bad
     return (
-      <div>
-        <p>
-          {'Good: '} {props.good} <br></br>
-          {'Neutral: '} {props.neutral} <br></br>
-          {'Bad: '} {props.bad} <br></br>
-          {'Total: '} {props.all} <br></br>
-          {'Avarage: '} {avarage / props.all} <br></br>
-          {'Positive: '} {Math.round((props.good / props.all) * 100).toFixed(2)} {'%'}
-        </p>
-      </div>
+      <table>
+        <tbody>
+        <Statistic text={'Good: '} value={props.good} />
+        <Statistic text={'Neutral: '} value={props.neutral} />
+        <Statistic text={'Bad: '} value={props.bad} />
+        <Statistic text={'Total: '} value={props.all} />
+        <Statistic text={'Avarage: '} value={avarage / props.all} />
+        <Statistic text={'Positive: '} value={Math.round((props.good / props.all) * 100).toFixed(2) + '%'} />
+        </tbody>
+      </table>
     )
   } else {
     return (
@@ -24,6 +31,8 @@ const Statistics = (props) => {
     )
   }
 }
+
+const Button = (props) => <button onClick={props.handleClick}>{props.text}</button>
 
 const App = () => {
   const [feedback, setFeedback] = useState({
@@ -60,18 +69,11 @@ const App = () => {
   return (
     <div>
       <h1>{'Give Feedback'}</h1>
-      <button onClick={handleGood}>Good</button>
-      <button onClick={handleNeutral}>Neutral</button>
-      <button onClick={handleBad}>Bad</button>
+      <Button handleClick={handleGood} text={'Good'} />
+      <Button handleClick={handleNeutral} text={'Neutral'} />
+      <Button handleClick={handleBad} text={'Bad'} />
       <h2>{'Statistics:'}</h2>
-      <p>
-        <Statistics
-          all={feedback.All}
-          good={feedback.Good}
-          neutral={feedback.Neutral}
-          bad={feedback.Bad}
-        />
-      </p>
+      <Statistics all={feedback.All} good={feedback.Good} neutral={feedback.Neutral} bad={feedback.Bad} />
     </div>
   )
 }
