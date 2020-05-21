@@ -1,28 +1,27 @@
 import React, { useState } from 'react'
 import ReactDom from 'react-dom'
 
-const Procentage = (props) => {
-  if (props.feedback.All > 0) {
+const Statistics = (props) => {
+  if (props.all > 0) {
+    let avarage = props.good - props.bad
     return (
       <div>
-        {'Positive: '} {Math.round((props.feedback.Good / props.feedback.All) * 100).toFixed(2)}
-        {'%'}
+        <p>
+          {'Good: '} {props.good} <br></br>
+          {'Neutral: '} {props.neutral} <br></br>
+          {'Bad: '} {props.bad} <br></br>
+          {'Total: '} {props.all} <br></br>
+          {'Avarage: '} {avarage / props.all} <br></br>
+          {'Positive: '} {Math.round((props.good / props.all) * 100).toFixed(2)} {'%'}
+        </p>
       </div>
     )
   } else {
-    return <div>{'Positive: '}</div>
-  }
-}
-
-const Avarage = (props) => {
-  if (props.feedback.All > 0) {
     return (
       <div>
-        {'Avarage: '} {props.feedback.Avarage / props.feedback.All}
+        <p>{'No feedback given'}</p>
       </div>
     )
-  } else {
-    return <div>{'Avarage: '}</div>
   }
 }
 
@@ -32,15 +31,13 @@ const App = () => {
     Neutral: 0,
     Bad: 0,
     All: 0,
-    Avarage: 0,
   })
 
-  const handeleGood = () => {
+  const handleGood = () => {
     setFeedback({
       ...feedback,
       Good: feedback.Good + 1,
       All: feedback.All + 1,
-      Avarage: feedback.Avarage + 1,
     })
   }
 
@@ -57,24 +54,23 @@ const App = () => {
       ...feedback,
       Bad: feedback.Bad + 1,
       All: feedback.All + 1,
-      Avarage: feedback.Avarage - 1,
     })
   }
 
   return (
     <div>
       <h1>{'Give Feedback'}</h1>
-      <button onClick={handeleGood}>Good</button>
+      <button onClick={handleGood}>Good</button>
       <button onClick={handleNeutral}>Neutral</button>
       <button onClick={handleBad}>Bad</button>
       <h2>{'Statistics:'}</h2>
       <p>
-        {'Good: '} {feedback.Good} <br></br>
-        {'Neutral: '} {feedback.Neutral} <br></br>
-        {'Bad: '} {feedback.Bad} <br></br>
-        {'Total: '} {feedback.All} <br></br>
-        <Avarage feedback={feedback} />
-        <Procentage feedback={feedback} />
+        <Statistics
+          all={feedback.All}
+          good={feedback.Good}
+          neutral={feedback.Neutral}
+          bad={feedback.Bad}
+        />
       </p>
     </div>
   )
