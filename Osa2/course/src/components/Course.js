@@ -6,13 +6,11 @@ import Total from './Total'
 const Course = ({ course }) => {
   return (
     <div>
-      <ul>
-        <Header course={course} />
-        <Content course={course} />
-        <strong>
-          <Total course={course} />
-        </strong>
-      </ul>
+      <Header course={course} />
+      <Content course={course} />
+      <strong>
+        <Total course={course} />
+      </strong>
     </div>
   )
 }
