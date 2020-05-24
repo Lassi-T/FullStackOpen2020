@@ -1,9 +1,10 @@
 import React from 'react'
 
 const Total = ({ course }) => {
-    const sum = course.parts[0].exercises + course.parts[1].exercises + course.parts[2].exercises
+    let initValue = 0
+    const total = course.parts.reduce((s, p) => s + p.exercises, initValue)
     return(
-      <p>Number of exercises {sum}</p>
+      <p>Number of exercises {total}</p>
     ) 
   }
 
