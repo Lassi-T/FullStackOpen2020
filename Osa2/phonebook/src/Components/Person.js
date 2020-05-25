@@ -3,7 +3,7 @@ import React from 'react'
 const Person = ( {person} ) => {
     //console.log(person)
     return (
-        <div> {person} </div>
+        <div> {person.name} {person.number} </div>
     )
 }
 
