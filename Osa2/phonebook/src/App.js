@@ -12,11 +12,16 @@ const App = () => {
 
   const AddContact = (event) => {
     event.preventDefault()
-    //console.log('Add button clicked', event.target)
-    console.log(persons.length + 1)
-    const contactObject = {name: newName, id: persons.length + 1}
-    setPersons(persons.concat(contactObject))
-    setNewName('')
+
+    console.log(persons)
+
+    if (!persons.some((person) => person.name === newName)) {
+      const contactObject = { name: newName, id: persons.length + 1 }
+      setPersons(persons.concat(contactObject))
+      setNewName('')
+    } else {
+      window.alert(`${newName} has already been added to the phonebook`)
+    }
   }
 
   return (
@@ -32,7 +37,9 @@ const App = () => {
       </form>
       <h2>Numbers</h2>
       <div>
-        {persons.map((person) => (<Person key={person.id} person={person.name} />))}
+        {persons.map((person) => (
+          <Person key={person.id} person={person.name} />
+        ))}
       </div>
     </div>
   )
