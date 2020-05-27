@@ -1,5 +1,7 @@
 import React from 'react'
 import Country from './Country'
+import HiddenCountry from './HiddenCountry'
+import Weather from './Weather'
 
 const Countries = ({ countries, filter }) => {
   // Filter the countries
@@ -10,11 +12,13 @@ const Countries = ({ countries, filter }) => {
     <div>
       {countriesToShow().length > 10 
         ? 'Too many matches, specify search.' 
-        : countriesToShow().length <= 3 
-        ? countriesToShow().map((country) => <Country key={country.alpha3Code} country={country} />)
-        : countriesToShow().map((country) => <div>{country.name}</div>)}
+        : countriesToShow().length === 1 
+        ? countriesToShow().map((country) => <div> <Country country={country} /> <Weather country={country}/> </div>)
+        : countriesToShow().length <= 3
+        ? countriesToShow().map((country) => <Country country={country} />)
+        : countriesToShow().map((country) => <HiddenCountry country={country} />)}
     </div>
   )
-}
+} 
 
 export default Countries

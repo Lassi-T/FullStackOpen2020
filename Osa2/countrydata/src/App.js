@@ -7,7 +7,7 @@ const App = () => {
   const [newFilter, setNewFilter] = useState('')
 
   useEffect(() => {
-    axios.get('https://restcountries.eu/rest/v2/all').then(response => {
+    axios.get('https://restcountries.eu/rest/v2/all').then((response) => {
       setCountries(response.data)
     })
   }, [])
@@ -20,9 +20,9 @@ const App = () => {
     <div>
       <h1>Countries</h1>
       <form>
-        Search: <input value={newFilter} onChange={handleFilterChange}/>
+        Search: <input value={newFilter} onChange={handleFilterChange} />
       </form>
-      <Countries countries={countries} filter={newFilter}/>
+      <Countries countries={countries} filter={newFilter} />
     </div>
   )
 }

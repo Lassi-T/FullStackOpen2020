@@ -4,15 +4,15 @@ const Country = ({ country }) => {
   return (
     <div>
       <h2>{country.name}</h2>
-      <div>{country.capital}</div>
-      <div>population {country.population}</div>
+      <div>Capital: {country.capital}</div>
+      <div>Population: {country.population}</div>
       <h3>Languages</h3>
-      <ul>
+      <div>
         {country.languages.map((language) => (
-          <li>{language.name}</li>
+          <li key={(country.population += 1)}>{language.name}</li>
         ))}
-      </ul>
-      <img src={country.flag} width='200' height='100' alt="a flag" />
+      </div>
+      <img src={country.flag} width='200' height='100' alt='a flag' />
     </div>
   )
 }
