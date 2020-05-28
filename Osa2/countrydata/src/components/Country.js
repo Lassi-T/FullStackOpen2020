@@ -7,11 +7,11 @@ const Country = ({ country }) => {
       <div>Capital: {country.capital}</div>
       <div>Population: {country.population}</div>
       <h3>Languages</h3>
-      <div>
+      <ul>
         {country.languages.map((language) => (
           <li key={(country.population += 1)}>{language.name}</li>
         ))}
-      </div>
+      </ul>
       <img src={country.flag} width='200' height='100' alt='a flag' />
     </div>
   )

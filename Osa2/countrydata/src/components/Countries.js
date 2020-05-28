@@ -13,10 +13,10 @@ const Countries = ({ countries, filter }) => {
       {countriesToShow().length > 10 
         ? 'Too many matches, specify search.' 
         : countriesToShow().length === 1 
-        ? countriesToShow().map((country) => <div> <Country country={country} /> <Weather country={country}/> </div>)
+        ? countriesToShow().map((country) => <div key={country.numericCode}> <Country country={country} /> <Weather country={country}/> </div>)
         : countriesToShow().length <= 3
-        ? countriesToShow().map((country) => <Country country={country} />)
-        : countriesToShow().map((country) => <HiddenCountry country={country} />)}
+        ? countriesToShow().map((country) => <Country key={country.numericCode} country={country} />)
+        : countriesToShow().map((country) => <HiddenCountry key={country.numericCode} country={country} />)}
     </div>
   )
 } 
