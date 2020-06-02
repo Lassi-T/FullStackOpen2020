@@ -1,4 +1,5 @@
 import React from 'react'
+import personsData from '../Services/personData'
 
 const ContactForm = ({
   persons,
@@ -13,13 +14,13 @@ const ContactForm = ({
   const AddContact = (event) => {
     event.preventDefault()
 
-    console.log(persons)
-
     if (!persons.some((person) => person.name === newName)) {
       const contactObject = { name: newName, number: newNumber, id: persons.length + 1 }
-      setPersons(persons.concat(contactObject))
-      setNewNumber('')
-      setNewName('')
+      personsData.createNew(contactObject).then((returnedPerson) => {
+        setPersons(persons.concat(returnedPerson))
+        setNewName('')
+        setNewNumber('')
+      })
     } else {
       window.alert(`${newName} has already been added to the phonebook`)
     }
