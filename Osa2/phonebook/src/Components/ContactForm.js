@@ -1,5 +1,5 @@
 import React from 'react'
-import personsData from '../Services/personData'
+import personData from '../Services/personData'
 
 const ContactForm = ({
   persons,
@@ -14,15 +14,22 @@ const ContactForm = ({
   const AddContact = (event) => {
     event.preventDefault()
 
-    if (!persons.some((person) => person.name === newName)) {
-      const contactObject = { name: newName, number: newNumber, id: persons.length + 1 }
-      personsData.createNew(contactObject).then((returnedPerson) => {
-        setPersons(persons.concat(returnedPerson))
-        setNewName('')
-        setNewNumber('')
-      })
-    } else {
-      window.alert(`${newName} has already been added to the phonebook`)
+    if (newName !== '' && newNumber !== '') {
+      if (persons.some((person) => person.name === newName)) {
+        if (window.confirm(`${newName} has already been added to the phonebook, 
+            do you want to replace the old number?`)) {
+          const person = persons.find((person) => person.name === newName)
+          const changedPerson = { ...person, number: newNumber }
+          personData.update(changedPerson).then(() => personData.getAll().then(setPersons))
+        }
+      } else {
+        const contactObject = { name: newName, number: newNumber, id: persons.length + 1 }
+        personData.createNew(contactObject).then((returnedPerson) => {
+          setPersons(persons.concat(returnedPerson))
+          setNewName('')
+          setNewNumber('')
+        })
+      }
     }
   }
 

@@ -36,12 +36,12 @@ const App = () => {
         newNumber={newNumber}
         setPersons={setPersons}
         setNewNumber={setNewNumber}
-        setNewName={setNewNumber}
+        setNewName={setNewName}
         handleNameChange={handleNameChange}
         handleNumberChange={handleNumberChange}
       />
       <h2>Numbers</h2>
-      <Persons persons={persons} newFilter={newFilter} />
+      <Persons persons={persons} newFilter={newFilter} setPersons={setPersons} />
     </div>
   )
 }
