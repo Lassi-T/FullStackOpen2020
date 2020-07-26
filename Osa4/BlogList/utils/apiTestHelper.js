@@ -1,3 +1,5 @@
+const Blog = require('../models/blog')
+const mongoose = require('mongoose')
 
 const initalBlogs = [
   {
@@ -18,4 +20,9 @@ const initalBlogs = [
   },
 ]
 
-module.exports = {initalBlogs}
+const getBlogs = async () => {
+  const blogs = await Blog.find({})
+  return blogs.map(blog => blog.toJSON())
+}
+
+module.exports = {initalBlogs, getBlogs}

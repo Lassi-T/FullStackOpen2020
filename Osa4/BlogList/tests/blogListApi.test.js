@@ -3,6 +3,7 @@ const supertest = require('supertest')
 const app = require('../app')
 const Blog = require('../models/blog')
 const helper = require('../utils/apiTestHelper')
+const { response } = require('express')
 
 const api = supertest(app)
 
@@ -31,7 +32,7 @@ describe('GET', () => {
 
   test('Identifying field is named id', async () => {
     const response = await api.get('/api/blogs')
-    response.body.forEach(blog => expect(blog.id).toBeDefined())
+    response.body.forEach((blog) => expect(blog.id).toBeDefined())
   })
 })
 
@@ -48,6 +49,49 @@ describe('POST', () => {
       .send(newBlog)
       .expect(201)
       .expect('Content-Type', /application\/json/)
+
+    const blogs = await helper.getBlogs()
+
+    expect(blogs.length).toBe(helper.initalBlogs.length + 1)
+  })
+
+  test('Likes are set to 0 if empty', async () => {
+    const noLikesBlog = {
+      title: 'TestBlog',
+      author: 'Dev',
+      url: 'http://TestBlog.com',
+    }
+    const response = await api
+      .post('/api/blogs')
+      .send(noLikesBlog)
+      .expect(201)
+      .expect('Content-Type', /application\/json/)
+
+    expect(response.body.likes).toBe(0)
+  })
+
+  test('400 is returned if title missing', async () => {
+    const noTitleBlog = {
+      author: 'Dev',
+      url: 'TestBlog',
+      likes: 1000,
+    }
+    await api
+      .post('/api/blogs')
+      .send(noTitleBlog)
+      .expect(400)
+  })
+
+  test('400 is returned if url missing', async () => {
+    const noUrlBlog = {
+      title: 'TestBlog',
+      author: 'Dev',
+      likes: 1000,
+    }
+    await api
+      .post('/api/blogs')
+      .send(noUrlBlog)
+      .expect(400)
   })
 })
 

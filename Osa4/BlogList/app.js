@@ -1,17 +1,19 @@
+const config = require('./utils/config')
 const express = require('express')
+const app = express()
 const cors = require('cors')
-const mongoose = require('mongoose')
 const blogsRouter = require('./controllers/blogsRouter')
 const middleware = require('./utils/middleware')
+const mongoose = require('mongoose')
 const logger = require('./utils/logger')
-const config = require('./utils/config')
 
-const app = express()
+mongoose.set('useFindAndModify', false)
+mongoose.set('useCreateIndex', true)
 
 logger.info('Connecting to', config.MONGODB_URI)
 
 mongoose
-  .connect(config.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false })
+  .connect(config.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true})
   .then(() => {
     logger.info('Connected to MongoDB')
   })
