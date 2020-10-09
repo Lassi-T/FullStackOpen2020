@@ -3,7 +3,6 @@ const supertest = require('supertest')
 const app = require('../app')
 const Blog = require('../models/blog')
 const helper = require('../utils/apiTestHelper')
-const { response } = require('express')
 
 const api = supertest(app)
 
