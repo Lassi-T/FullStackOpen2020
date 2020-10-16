@@ -40,12 +40,16 @@ const ContactForm = ({
         personData.createNew(contactObject).then((returnedPerson) => {
           setPersons(persons.concat(returnedPerson))
           setMessage(`Added ${newName}`)
-          setTimeout(() => {
-            setMessage(null)
-          }, 5000)
           setNewName('')
           setNewNumber('')
+        }) 
+        // Name or number not long enough
+        .catch(error => {
+          setMessage(error.response.data.error)
         })
+        setTimeout(() => {
+          setMessage(null)
+        }, 5000)
       }
     }
   }
