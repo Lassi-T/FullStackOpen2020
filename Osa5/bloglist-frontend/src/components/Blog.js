@@ -1,14 +1,10 @@
 import React from 'react'
 const Blog = ({ blog, username }) => {
-  
-  
-
-  return(
+  return (
     <div>
-      {blog.title} {blog.author}
+      {blog.title}, {blog.author}
     </div>
   )
 }
 
 export default Blog
-
