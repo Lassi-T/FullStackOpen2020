@@ -3,9 +3,10 @@
 }
 
 .Title {
-  color: black;
-  background-color: red;
+  color: white;
+  background-color: blue;
   padding: 10px;
+  text-align: center;
 }
 
 .Notification {

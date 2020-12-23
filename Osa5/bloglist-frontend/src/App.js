@@ -4,6 +4,7 @@ import Blog from './components/Blog'
 import Notification from './components/Notification'
 import ErrorMessage from './components/ErrorMessage'
 import NewBlog from './components/NewBlog'
+import Togglable from './components/Togglable'
 import blogService from './services/blogs'
 import loginService from './services/login'
 
@@ -18,6 +19,9 @@ const App = () => {
   useEffect(() => {
     blogService.getAll().then(blogs => setBlogs(blogs))
   }, [])
+
+  //Sort the blogs by most likes
+  blogs.sort((a,b) => b.likes - a.likes)
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedUser')
@@ -95,7 +99,25 @@ const App = () => {
     </form>
   )
 
-  const newBlogForm = () => <NewBlog newBlogObject={addBlog} />
+  const newBlogForm = () => (
+    <Togglable buttonLabel='New Blog'>
+      <NewBlog newBlogObject={addBlog}  />
+    </Togglable>
+  )
+
+  const changeBlog = async (id, blogObject) => {
+    await blogService.update(id, blogObject)
+    blogService.getAll().then(blogs => setBlogs(blogs))
+  }
+
+  const deleteBlog = async (id) => {
+    await blogService.remove(id)
+    setBlogs(blogs.filter(blog => blog.id !== id))
+    setMessage('Blog deleted successfully')
+    setTimeout(() => {
+      setMessage(null)
+    }, 3000)
+  }
 
   if (user === null) {
     return (
@@ -119,7 +141,13 @@ const App = () => {
       <h2>New Blog</h2>
       {newBlogForm()}
       {blogs.map(blog => (
-        <Blog key={blog.id} blog={blog} username={user.username} />
+        <Blog 
+          key={blog.id} 
+          blog={blog} 
+          username={user.username} 
+          changedBlog={changeBlog}
+          deleteBlog={deleteBlog}
+        />
       ))}
     </div>
   )
