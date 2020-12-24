@@ -34,7 +34,7 @@ const Blog = ({ blog, username, changedBlog, deleteBlog }) => {
         {blog.title}, {blog.author}
         <button onClick={togglVisibility}>{buttonLabel}</button>
       </div>
-      <div style={showWhenVisible}>
+      <div style={showWhenVisible} className='moreInfo'>
         <p>{blog.url}</p>
         <p>
           {blog.likes} 

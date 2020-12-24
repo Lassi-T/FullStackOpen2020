@@ -25,6 +25,7 @@ const NewBlog = ({ newBlogObject }) => {
           type='text'
           value={title}
           name='Title'
+          id='title'
           onChange={({ target }) => setTitle(target.value)}
         />
       </div>
@@ -34,6 +35,7 @@ const NewBlog = ({ newBlogObject }) => {
           type='text'
           value={author}
           name='Author'
+          id='author'
           onChange={({ target }) => setAuthor(target.value)}
         />
       </div>

@@ -113,10 +113,6 @@ const App = () => {
   const deleteBlog = async (id) => {
     await blogService.remove(id)
     setBlogs(blogs.filter(blog => blog.id !== id))
-    setMessage('Blog deleted successfully')
-    setTimeout(() => {
-      setMessage(null)
-    }, 3000)
   }
 
   if (user === null) {
