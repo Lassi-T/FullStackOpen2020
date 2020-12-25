@@ -30,15 +30,15 @@ const Blog = ({ blog, username, changedBlog, deleteBlog }) => {
 
   return (
     <div>
-      <div>
+      <div id='blogInfo'>
         {blog.title}, {blog.author}
-        <button onClick={togglVisibility}>{buttonLabel}</button>
+        <button onClick={togglVisibility} id='toggleView'>{buttonLabel}</button>
       </div>
       <div style={showWhenVisible} className='moreInfo'>
         <p>{blog.url}</p>
         <p>
           {blog.likes} 
-          <button onClick={like}>Like</button> 
+          <button onClick={like} id='like'>Like</button> 
         </p>
         <p>{blog.user[0].name}</p>
         <div style={showIfLogged}>
